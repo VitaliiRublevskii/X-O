@@ -7,28 +7,30 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             CreateBtns();
+            Width = 500;
+            Height = 350;
         }
 
-       
-        private void CreateBtns(int count = 3)
+        int posH = 0;
+        int posV = 0;
+        int choice = 0;
+        public void CreateBtns(int count = 3)
         {
-            int posH = 0;
-            int posV = 0;
-            int choice = 0;
+
 
             for (int i = 0; i < count; i++)
             {
                 for (int j = 0; j < count; j++)
                 {
-                   if (i == 1 && j == 0)
+                    if (i == 1 && j == 0)
                     {
 
-                        posH =0;
+                        posH = 0;
                         posV = 100;
                     }
                     if (i == 2 && j == 0)
                     {
-                        posH  = 0;
+                        posH = 0;
                         posV = 200;
                     }
 
@@ -37,13 +39,16 @@ namespace WinFormsApp1
                         Text = $"выбери меня)",
                         BackColor = Color.Black,
                         ForeColor = Color.Wheat,
-                        Location = new Point(posH +=100, posV),
+                        Location = new Point(posH += 100, posV),
                         Height = 100,
                         Width = 100,
+                        Name = $"btn_{i.ToString()}_{j.ToString()}"
                         
+
                     });
                     this.Controls[this.Controls.Count - 1].Click += (sender, e) =>
                     {
+                        //MessageBox.Show((sender as Button).Name);
                         if (choice % 2 == 0 && (sender as Button).Text == "выбери меня)")
                         {
                             (sender as Button).BackColor = Color.Green;
@@ -58,15 +63,35 @@ namespace WinFormsApp1
                             (sender as Button).Text = "O";
                             choice++;
                         }
-                    
+                       
                     };
+                    
                 }
-                
+            }
 
-                
+
+
+        }
+        private void btn_click(object? sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            if ((btn.Name == "btn_0_0" && btn.Text == "X") && (btn.Name == "btn_0_1" && btn.Text == "X") && (btn.Name == "btn_0_2" && btn.Text == "X"))
+            {
+                MessageBox.Show($"X - WIN");
+
+            }
+            if (btn.Name == "btn_1_0" && btn.Name == "btn_1_1" && btn.Name == "btn_1_2" && btn.Text == "X")
+            {
+                MessageBox.Show($"X - WIN");
+
+            }
+            if ((sender as Button).Text == "X" && (sender as Button).Text == "X" && (sender as Button).Text == "X")
+            {
+                this.Text = "X - win";
+
             }
 
         }
-
     }
 }
